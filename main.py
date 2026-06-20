@@ -66,11 +66,12 @@ def app_opener():
     print("App not found.")
 
 def ping_utility():
+    import ipaddress
+
     valid_ip_count = False
     valid_ping_count = False
-    while valid_ip_count is False:
-        ping_ip_counts = input("How many IP Addresses would you like to"
-                               " ping simultaneously? ")
+    while not valid_ip_count:
+        ping_ip_counts = input("How many IP Addresses would you like to ping simultaneously? ")
         try:
             ping_ip_counts = int(ping_ip_counts)
             if ping_ip_counts < 1 or ping_ip_counts > 32:
@@ -79,7 +80,8 @@ def ping_utility():
                 valid_ip_count = True
         except ValueError:
             print("Please enter a valid number.")
-    while valid_ping_count is False:
+
+    while not valid_ping_count:
         ping_times = input("How many times should I ping? ")
         try:
             ping_times = int(ping_times)
@@ -89,33 +91,47 @@ def ping_utility():
                 valid_ping_count = True
         except ValueError:
             print("Please enter a valid number.")
+
+    ips = []
     for i in range(ping_ip_counts):
-        ping_ip.append(input(f"Please enter IP Address {i + 1}: "))
-    for i in range(ping_times):
-        time.sleep(1)
-        for i in range(len(ping_ip)):
+        while True:
+            addr = input(f"Please enter IP Address {i + 1}: ")
             try:
-                response = ping(ping_ip[i], count = 1, verbose=True)
+                ipaddress.IPv4Address(addr)
+                ips.append(addr)
+                break
+            except ipaddress.AddressValueError:
+                print("Invalid IPv4 address. Please enter a valid IP address.")
+
+    for _ in range(ping_times):
+        time.sleep(1)
+        for addr in ips:
+            try:
+                response = ping(addr, count=1, verbose=False)
                 if response.success():
-                    print(f"\033[32m\n{ping_ip[i]} is online!\033[0m")
+                    print(f"\033[32m\n{addr} is online!\033[0m")
                 else:
-                    print(f"\033[31m\n{ping_ip[i]} is offline.\033[0m")
+                    print(f"\033[31m\n{addr} is offline.\033[0m")
             except PermissionError:
                 print("\n[ERROR] Pure Python ping requires Administrator/Root privileges.")
                 print("Please run this terminal/script as Administrator.")
-                break
+                return
             except RuntimeError:
-                print(f"\n[ERROR] Could not ping {ping_ip[i]}. Please check the IP address and try again.")
-                break
+                print(f"\n[ERROR] Could not ping {addr}. Please check the IP address and try again.")
+                continue
+
+
 def utilities():
     """Display other utilities."""
     utility_request = ""
     while utility_request != "clear":
-        print("Utilities: Clear - Clear the chat, C - Calculator, F - Fun,"
+        print("Utilities: Clear - Clear the chat, C - Calculator, F - Fun, "
             "R - Random Generators, S - System Info, P - Ping")
         utility_request = input("Which utility would you like to use? ").lower()
         if utility_request == "p":
             ping_utility()
+
+
 """Actual program starts here."""
 if returning == 1:
     welcome_returning(name)
