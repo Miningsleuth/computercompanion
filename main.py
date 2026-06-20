@@ -1,5 +1,10 @@
 """Computer Companion."""
 import json
+import os
+
+if not os.path.exists("data/first.json"):
+    with open("data/first.json", "w") as f:
+        json.dump({}, f)
 
 with open("data/first.json", "r") as f:
     returning = json.load(f)
