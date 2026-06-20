@@ -1,7 +1,6 @@
 """Computer Companion."""
 import json
 import os
-import subprocess
 
 DEFAULT_APPS = {"Powershell": "powershell",
                 "Command Prompt": "cmd",
@@ -24,7 +23,8 @@ def file_setup():
             json.dump("", f)
 
 
-#Loads .json files for data into variables
+file_setup()
+# Loads .json files for data into variables
 with open("data/first.json", "r") as f:
     returning = json.load(f)
 with open("data/name.json", "r") as f:
@@ -60,15 +60,14 @@ def app_opener():
 
 
 """Actual program starts here."""
-file_setup()
-
 if returning == 1:
     welcome_returning(name)
 else:
     welcome_first()
 
 while request != "exit" and request != "quit":
-    print("Functions: O - Open an app, Exit - Exit the program, Help - Help menu")
+    print("Functions: O - Open an app, Exit - Exit the program, "
+          "Help - Help menu")
     request = input("What would you like to do? ").lower()
     if request == "o":
         app_opener()
