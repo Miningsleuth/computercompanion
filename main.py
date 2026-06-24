@@ -3,6 +3,8 @@ import json
 import os
 import sys
 import time
+import ipaddress
+import random
 
 try:
     from pythonping import ping
@@ -40,7 +42,7 @@ with open("data/name.json", "r") as f:
 
 def welcome_first():
     """Do greeting for first time user."""
-    print("Welcome to Computer Companion!")
+    print(f"\033[32m\nWelcome to Computer Companion!\033[0m")
     name = input("Please enter your name: ")
     with open("data/first.json", "w") as f:
         json.dump(1, f)
@@ -48,10 +50,14 @@ def welcome_first():
         json.dump(name, f)
     print(f"Nice to meet you, {name}!\n")
 
-
 def welcome_returning(name):
+    WELCOME_MESSAGES = [f"Welcome back {name}!", f"Hello again {name}!", 
+                    f"Good to see you again {name}!", f"Welcome back, "
+                    f"{name}!",
+                    f"Hey {name}, welcome back!", f"A great day to "
+                    f"chat with you, {name}!", f"Nice to see you, {name}!"]
     """Do greeting for returning user."""
-    print(f"Welcome Back, {name}!\n")
+    print(f"\033[32m\n{WELCOME_MESSAGES[random.randint(0, len(WELCOME_MESSAGES) - 1)]}\033[0m")
 
 
 def app_opener():
@@ -66,8 +72,6 @@ def app_opener():
     print("App not found.")
 
 def ping_utility():
-    import ipaddress
-
     valid_ip_count = False
     valid_ping_count = False
     while not valid_ip_count:
@@ -124,12 +128,17 @@ def ping_utility():
 def utilities():
     """Display other utilities."""
     utility_request = ""
-    while utility_request != "clear":
-        print("Utilities: Clear - Clear the chat, C - Calculator, F - Fun, "
-            "R - Random Generators, S - System Info, P - Ping")
+    while utility_request != "b":
+        print("\nUtilities: C - Calculator, F - Fun, "
+            "R - Random Generators, S - System Info, P - Ping, B - Back to "
+            "main menu")
         utility_request = input("Which utility would you like to use? ").lower()
         if utility_request == "p":
             ping_utility()
+        elif utility_request == "b":
+            print("Returning to main menu...")
+        
+
 
 
 """Actual program starts here."""
@@ -139,7 +148,7 @@ else:
     welcome_first()
 
 while request != "exit" and request != "quit":
-    print("Functions: O - Open an app, Exit - Exit the program, "
+    print("\nFunctions: O - Open an app, Exit - Exit the program, "
           "U - Other Utilities, Help - Help menu")
     request = input("What would you like to do? ").lower()
     if request == "o":
