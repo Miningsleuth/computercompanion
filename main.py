@@ -132,14 +132,24 @@ def utilities():
         print("\nUtilities: C - Calculator, F - Fun, "
             "R - Random Generators, S - System Info, P - Ping, B - Back to "
             "main menu")
-        utility_request = input("Which utility would you like to use? ").lower()
+        utility_request = input("Which utility would you"
+                                " like to use? ").lower()
         if utility_request == "p":
             ping_utility()
         elif utility_request == "b":
             print("Returning to main menu...")
-        
-
-
+        elif utility_request == "c":
+            print("Calculator will be added in a later update!")
+        elif utility_request == "f":
+            print("I'm not fun yet I'm afraid :( Don't worry though, I will" \
+            " be soon enough!")
+        elif utility_request == "r":
+            print("This is kind of random, but random"
+            "numbers aren't added yet! Don't worry, they will be soon!")
+        elif utility_request == "s":
+            print("System info will be added in a later update!")
+        else:
+            print("That is not a valid command. Please enter something else.")
 
 """Actual program starts here."""
 if returning == 1:

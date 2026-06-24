@@ -1,5 +1,5 @@
 # Computer Companion
-A python script that helps users access things they need faster and get information in an efficient way. 
+A python script that helps users access things they need faster and access information in an efficient way. Has built in tools to streamline user workflow. 
 
 ## Features
 - Remembers user name
