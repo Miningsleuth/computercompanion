@@ -124,6 +124,34 @@ def ping_utility():
                 print(f"\n[ERROR] Could not ping {addr}. Please check the IP address and try again.")
                 continue
 
+def calculator():
+    """Do the calculator utility."""
+    print("\nCalculator")
+    print("Select an operator. So far I can only do"
+          "addition, subtraction, multiplication, and division, but more"
+          "will be added in the future!")
+    operator = input("What function do you want to use? (A - Add, "
+                    "S - Subtract, M - Multiply, D - Divide) ").lower()
+    if operator == "a":
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
+        print(f"The answer is: {num1 + num2}")
+    elif operator == "s":
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
+        print(f"The answer is: {num1 - num2}")
+    elif operator == "m":
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
+        print(f"The answer is: {num1 * num2}")
+    elif operator == "d":
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
+        if num2 == 0:
+            print("Cannot divide by zero.")
+        else:
+            print(f"The answer is: {num1 / num2}")
+
 
 def utilities():
     """Display other utilities."""
@@ -139,7 +167,7 @@ def utilities():
         elif utility_request == "b":
             print("Returning to main menu...")
         elif utility_request == "c":
-            print("Calculator will be added in a later update!")
+            calculator()
         elif utility_request == "f":
             print("I'm not fun yet I'm afraid :( Don't worry though, I will" \
             " be soon enough!")
@@ -149,7 +177,7 @@ def utilities():
         elif utility_request == "s":
             print("System info will be added in a later update!")
         else:
-            print("That is not a valid command. Please enter something else.")
+            print("\033[31m\nThat is not a valid command. Please enter something else.\033[0m")
 
 """Actual program starts here."""
 if returning == 1:
@@ -175,4 +203,4 @@ while request != "exit" and request != "quit":
     elif request == "exit" or request == "quit":
         print("Goodbye!")
     else:
-        print("That is not a valid command. Please try again.")
+        print("\033[31m\nThat is not a valid command. Please try again.\033[0m")
