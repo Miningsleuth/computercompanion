@@ -1,2 +1,31 @@
-# computercompanion
-A software that helps users access things they need faster and get information in an efficient way. 
+# Computer Companion
+A python script that helps users access things they need faster and get information in an efficient way. 
+
+## Features
+- Remembers user name
+- Opening App Function
+- Help Menu
+- Basic Calculator
+- System Information
+- IPv4 automatic batch ping
+- Random Number Generator
+- Friendly Greetings
+- Fun mode including jokes
+
+
+## Requirements
+- Python installed
+- Data folder prepared (should come in repo)
+
+### Optional
+- Pythonping (install using pip install pythonping in terminal)
+
+
+## How to use
+### Running for first time
+Simply run the python script after installing and preparing the requirements. It will greet you for the first time and will ask for a name. Simply type in the terminal your response, and press enter. Everything is explained in the script, and there is a help mode. 
+### Changing name
+Changing the name is simple, just delete the first.json and name.json files in /data and it will reprompt for the name the next time the script runs. Alternatively, you can modify the .json files to change your name or make the script think you are running it for the first time again. 
+
+
+Made by Charlie Lindsay during Hackclub Stardance
