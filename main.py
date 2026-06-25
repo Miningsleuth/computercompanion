@@ -51,8 +51,8 @@ def welcome_first():
     print(f"Nice to meet you, {name}!\n")
 
 def welcome_returning(name):
-    WELCOME_MESSAGES = [f"Welcome back {name}!", f"Hello again {name}!", 
-                    f"Good to see you again {name}!", f"Welcome back, "
+    WELCOME_MESSAGES = [f"Welcome back, {name}!", f"Hello again, {name}!", 
+                    f"Good to see you again, {name}!", f"Welcome back, "
                     f"{name}!",
                     f"Hey {name}, welcome back!", f"A great day to "
                     f"chat with you, {name}!", f"Nice to see you, {name}!"]
@@ -153,6 +153,61 @@ def calculator():
             print(f"The answer is: {num1 / num2}")
 
 
+def fun():
+    """Do the fun utility."""
+    print("I'm not fun yet I'm afraid :( Don't worry though, I will be soon enough!")
+
+def random_generator():
+    """Do the random utility."""
+    random_request = input("Would you like a random N - number or W -word? ").lower()
+    if random_request == "n":
+        valid = False
+        while valid is False:
+            try:
+                lower_bound = int(input("Enter the lower number: "))
+                valid = True
+            except ValueError:
+                print("\033[31mThat is not valid!\033[0m")
+            except TypeError:
+                print("\033[31mThat is not valid!\033[0m")
+        valid = False
+        while valid is False:
+            try:
+                upper_bound = int(input("Enter the upper number: "))
+                if upper_bound <= lower_bound:
+                    print("\033[31mThat is not valid!\033[0m")
+                else:
+                    valid = True
+            except ValueError:
+                print("\033[31mThat is not valid!\033[0m")
+            except TypeError:
+                print("\033[31mThat is not valid!\033[0m")
+        print(f"Your random number is: {random.randint(lower_bound, upper_bound)}")
+    elif random_request == "w":
+        valid = False
+        words = []
+        while valid is False:
+            try:
+                amount_words = int(input("How many words are you going to add? "))
+                if amount_words > 1:
+                    valid = True
+                else:
+                    print("\033[31mThat is not valid!\033[0m")
+            except ValueError:
+                print("\033[31mThat is not valid!\033[0m")
+        for i in range(amount_words):
+            words.append(input(f"{i+1}. Enter the word: "))
+        print("\n")
+        print(words[random.randint(0, amount_words)])
+
+    else:
+        print("That is not an option!")
+
+
+def system_info():
+    print("System info will be added in a later update!")
+
+
 def utilities():
     """Display other utilities."""
     utility_request = ""
@@ -169,13 +224,11 @@ def utilities():
         elif utility_request == "c":
             calculator()
         elif utility_request == "f":
-            print("I'm not fun yet I'm afraid :( Don't worry though, I will" \
-            " be soon enough!")
+            fun()
         elif utility_request == "r":
-            print("This is kind of random, but random"
-            "numbers aren't added yet! Don't worry, they will be soon!")
+            random_generator()
         elif utility_request == "s":
-            print("System info will be added in a later update!")
+            system_info()
         else:
             print("\033[31m\nThat is not a valid command. Please enter something else.\033[0m")
 
