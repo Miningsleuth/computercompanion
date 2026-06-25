@@ -48,12 +48,10 @@ def safe_load_json(path, default):
             json.dump(default, f)
         return default
 
-
 file_setup()
 
 returning = safe_load_json(os.path.join(DATA_DIR, "first.json"), 0)
 name = safe_load_json(os.path.join(DATA_DIR, "name.json"), "")
-
 
 def welcome_first():
     print(f"\033[32m\nWelcome to Computer Companion!\033[0m")
@@ -87,6 +85,7 @@ def app_opener():
             return
     print("App not found.")
 
+
 def ping_utility():
     valid_ip_count = False
     valid_ping_count = False
@@ -100,7 +99,6 @@ def ping_utility():
                 valid_ip_count = True
         except ValueError:
             print("Please enter a valid number.")
-
     while not valid_ping_count:
         ping_times = input("How many times should I ping? ")
         try:
@@ -111,7 +109,6 @@ def ping_utility():
                 valid_ping_count = True
         except ValueError:
             print("Please enter a valid number.")
-
     ips = []
     for i in range(ping_ip_counts):
         while True:
@@ -139,6 +136,7 @@ def ping_utility():
             except RuntimeError:
                 print(f"\n[ERROR] Could not ping {addr}. Please check the IP address and try again.")
                 continue
+
 
 def calculator():
     """Do the calculator utility."""
@@ -227,7 +225,7 @@ def system_info():
     print(f"Machine: {platform.machine()}")
     print(f"System: {platform.system()}")
     print(f"Platform: {platform.platform()}")
-    print(f"RAM: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB")
+    print(f"RAM: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB")  # For calculating RAM, this code was inspired by a StackOverflow question: https://stackoverflow.com/questions/3103178/how-to-get-the-system-info-with-python
 
 
 def utilities():
@@ -241,7 +239,7 @@ def utilities():
                                 " like to use? ").lower()
         if utility_request == "p":
             ping_utility()
-        elif utility_request == "b":
+        elif utility_request == "b":  # Back option
             print("Returning to main menu...")
         elif utility_request == "c":
             calculator()
@@ -253,6 +251,7 @@ def utilities():
             system_info()
         else:
             print("\033[31m\nThat is not a valid command. Please enter something else.\033[0m")
+
 
 """Actual program starts here."""
 if returning == 1:

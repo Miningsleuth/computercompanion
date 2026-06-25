@@ -27,7 +27,10 @@ Simply run the python script after installing and preparing the requirements. It
 ### Changing name
 Changing the name is simple, just delete the first.json and name.json files in /data and it will reprompt for the name the next time the script runs. Alternatively, you can modify the .json files to change your name or make the script think you are running it for the first time again. 
 
-## AI Use
+## Assistance
+### AI Use
 AI was only used for some debugging, some concepts I didn't understand, which I then recoded and implemented in. And, for the joke gathering. 
+### Other code support
+- Stack Overflow in question: https://stackoverflow.com/questions/3103178/how-to-get-the-system-info-with-python for some code with RAM details. 
 
 Made by Charlie Lindsay during Hackclub Stardance
