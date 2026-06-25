@@ -23,33 +23,42 @@ DEFAULT_APPS = {"Powershell": "powershell",
 request = ""
 ping_ip = []
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
 def file_setup():
     """Do a check if .json file exists, and if not creates them."""
-    if not os.path.exists("data/first.json"):
-        with open("data/first.json", "w") as f:
+    first_path = os.path.join(DATA_DIR, "first.json")
+    name_path = os.path.join(DATA_DIR, "name.json")
+
+    if not os.path.exists(first_path):
+        with open(first_path, "w") as f:
             json.dump(0, f)
-    if not os.path.exists("data/name.json"):
-        with open("data/name.json", "w") as f:
+
+    if not os.path.exists(name_path):
+        with open(name_path, "w") as f:
             json.dump("", f)
 
-
 file_setup()
-# Loads .json files for data into variables
-with open("data/first.json", "r") as f:
+
+
+with open(os.path.join(DATA_DIR, "first.json"), "r") as f:
     returning = json.load(f)
-with open("data/name.json", "r") as f:
+
+with open(os.path.join(DATA_DIR, "name.json"), "r") as f:
     name = json.load(f)
 
 
 def welcome_first():
-    """Do greeting for first time user."""
     print(f"\033[32m\nWelcome to Computer Companion!\033[0m")
     name = input("Please enter your name: ")
-    with open("data/first.json", "w") as f:
+    with open(os.path.join(DATA_DIR, "first.json"), "w") as f:
         json.dump(1, f)
-    with open("data/name.json", "w") as f:
+
+    with open(os.path.join(DATA_DIR, "name.json"), "w") as f:
         json.dump(name, f)
-    print(f"Nice to meet you, {name}!\n")
+    print(f"\033[32mNice to meet you, {name}!\n\033[0m")
+
 
 def welcome_returning(name):
     WELCOME_MESSAGES = [f"Welcome back, {name}!", f"Hello again, {name}!", 
