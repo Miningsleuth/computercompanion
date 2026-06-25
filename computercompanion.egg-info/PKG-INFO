@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: computercompanion
+Version: 1.0.3
+Summary: A python based friendly assistant filled with tools
+Author: Charlie Lindsay
+Requires-Python: >=3.8
+Requires-Dist: pythonping
+Requires-Dist: psutil

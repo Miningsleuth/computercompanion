@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+computercompanion/__init__.py
+computercompanion/main.py
+computercompanion.egg-info/PKG-INFO
+computercompanion.egg-info/SOURCES.txt
+computercompanion.egg-info/dependency_links.txt
+computercompanion.egg-info/entry_points.txt
+computercompanion.egg-info/requires.txt
+computercompanion.egg-info/top_level.txt
+computercompanion/data/first.json
+computercompanion/data/name.json
+computercompanion/data/test.txt

@@ -6,6 +6,7 @@ import time
 import ipaddress
 import random
 import platform
+import psutil
 
 try:
     from pythonping import ping
@@ -27,26 +28,31 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
 def file_setup():
-    """Do a check if .json file exists, and if not creates them."""
-    first_path = os.path.join(DATA_DIR, "first.json")
-    name_path = os.path.join(DATA_DIR, "name.json")
+    """Ensure data directory exists."""
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
 
-    if not os.path.exists(first_path):
-        with open(first_path, "w") as f:
-            json.dump(0, f)
 
-    if not os.path.exists(name_path):
-        with open(name_path, "w") as f:
-            json.dump("", f)
+def safe_load_json(path, default):
+    """Load JSON from file, or create with default if missing/corrupted."""
+    if not os.path.exists(path) or os.path.getsize(path) == 0:
+        with open(path, "w") as f:
+            json.dump(default, f)
+        return default
+    
+    try:
+        with open(path, "r") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        with open(path, "w") as f:
+            json.dump(default, f)
+        return default
+
 
 file_setup()
 
-
-with open(os.path.join(DATA_DIR, "first.json"), "r") as f:
-    returning = json.load(f)
-
-with open(os.path.join(DATA_DIR, "name.json"), "r") as f:
-    name = json.load(f)
+returning = safe_load_json(os.path.join(DATA_DIR, "first.json"), 0)
+name = safe_load_json(os.path.join(DATA_DIR, "name.json"), "")
 
 
 def welcome_first():
@@ -217,7 +223,11 @@ def random_generator():
 
 
 def system_info():
-    print("\n######\nSYSTEM INFO\n######")
+    print("\n###########\nSYSTEM INFO\n###########")
+    print(f"Machine: {platform.machine()}")
+    print(f"System: {platform.system()}")
+    print(f"Platform: {platform.platform()}")
+    print(f"RAM: {round(psutil.virtual_memory().total / (1024 ** 3), 2)} GB")
 
 
 def utilities():
@@ -249,8 +259,8 @@ if returning == 1:
     welcome_returning(name)
 else:
     welcome_first()
-with open(os.path.join(DATA_DIR, "name.json"), "r") as f:
-    name = json.load(f)
+    # Reload name after first-time setup
+    name = safe_load_json(os.path.join(DATA_DIR, "name.json"), "")
 
 while request != "exit" and request != "quit":
     print("\nFunctions: O - Open an app, Exit - Exit the program, "
@@ -261,12 +271,13 @@ while request != "exit" and request != "quit":
     elif request == "u":
         utilities()
     elif request == "help":
-        print("You asked for help, and I will provide!"
+        print("\nYou asked for help, and I will provide!"
               "I am your computer companion. Tell me a"
               " command, and I will do it. Here "
               "are the commands you can use: "
               "Functions: O - Open an app, Exit - Exit the program, "
-              "U - Other Utilities, Help - Help menu")
+              "U - Other Utilities, Help - Help menu\nThanks for using my" \
+              " program! I hope you enjoy it! - Charlie")
     elif request == "exit" or request == "quit":
         print("Goodbye!")
     else:
