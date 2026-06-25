@@ -1,7 +1,6 @@
 """Computer Companion."""
 import json
 import os
-import sys
 import time
 import ipaddress
 import random
@@ -13,6 +12,8 @@ try:
 except ImportError:
     print("To use ping utilities, you need to install the pythonping "
     "library. \nPlease run: pip install pythonping in your terminal.")
+
+"""Variable Setup Below :)"""
 DEFAULT_APPS = {"Powershell": "powershell",
                 "Command Prompt": "cmd",
                 "Cmd": "cmd",
@@ -39,7 +40,6 @@ def safe_load_json(path, default):
         with open(path, "w") as f:
             json.dump(default, f)
         return default
-    
     try:
         with open(path, "r") as f:
             return json.load(f)
@@ -48,14 +48,14 @@ def safe_load_json(path, default):
             json.dump(default, f)
         return default
 
-file_setup()
+file_setup()  # Runs before anything else just to ensure it works in the correct order.
 
 returning = safe_load_json(os.path.join(DATA_DIR, "first.json"), 0)
 name = safe_load_json(os.path.join(DATA_DIR, "name.json"), "")
 
 def welcome_first():
     print(f"\033[32m\nWelcome to Computer Companion!\033[0m")
-    name = input("Please enter your name: ")
+    name = input("What should I call you? ")
     with open(os.path.join(DATA_DIR, "first.json"), "w") as f:
         json.dump(1, f)
 
@@ -76,6 +76,7 @@ def welcome_returning(name):
 
 def app_opener():
     """Do the app opening function."""
+    print("WARNING: Designed for Windows")
     print(f"App options: {', '.join(DEFAULT_APPS)}")
     app_name = input("What app would you like to open? ").lower()
     for key, value in DEFAULT_APPS.items():
@@ -171,7 +172,15 @@ def fun():
     """Do the fun utility."""
     JOKES = ["Why don't eggs tell jokes? They'd crack each other up.", "I used to be a baker, but I couldn't make enough dough.", "I’m reading a book on anti‑gravity. It’s impossible to put down.", "Why did the scarecrow win an award? He was outstanding in his field.", "I don't trust stairs. They're always up to something.", "Why did the bicycle fall over? It was two‑tired.", "I used to play piano by ear, now I use my hands.", "Why can't you give Elsa a balloon? She’ll let it go.", "What do you call fake spaghetti? An impasta.", "Why did the math book look sad? Too many problems.", "I’m on a seafood diet. I see food and I eat it.", "Why don’t skeletons fight? They don’t have the guts.", "What do you call cheese that isn’t yours? Nacho cheese.", "Why did the golfer bring two pairs of pants? In case he got a hole in one.", "I used to be addicted to soap, but I’m clean now.", "Why did the tomato blush? It saw the salad dressing.", "What do you call a belt made of watches? A waist of time.", "Why don’t oysters donate to charity? They’re shellfish.", "I told my computer I needed a break, and it said 'No problem — I’ll go to sleep.'", "Why did the cookie go to the doctor? It felt crumby.", "What do you call a factory that makes OK products? A satisfactory.", "Why was the broom late? It swept in.", "Why did the coffee file a police report? It got mugged.", "I used to be a banker, but I lost interest.", "Why don’t crabs share? Because they’re shellfish.", "What do you call a sleeping bull? A bulldozer.", "Why did the chicken join a band? It had drumsticks.", "Why can’t a nose be 12 inches long? Then it’d be a foot.", "What do you call a pile of cats? A meow‑tain.", "Why did the stadium get hot? All the fans left.", "Why did the computer go to therapy? Too many tabs open.", "Why don’t melons get married? They cantaloupe.", "What do you call a fish wearing a bowtie? Sofishticated.", "Why did the man fall into the well? He couldn’t see that well.", "Why don’t vampires go to barbecues? They don’t like stakes.", "What do you call a dog magician? A labracadabrador.", "Why did the orange stop? It ran out of juice.", "Why did the photo go to jail? It was framed.", "Why did the tree get online? To log in.", "Why did the barber win the race? He took a shortcut.", "Why don’t cows have money? Farmers milk them dry.", "Why did the banana go to the doctor? It wasn’t peeling well.", "What do you call a bear with no teeth? A gummy bear.", "Why did the music teacher go to jail? She got caught with too many notes.", "Why did the fish blush? It saw the ocean’s bottom.", "Why don’t seagulls fly over the bay? Then they’d be bagels.", "Why did the calendar get nervous? Its days were numbered.", "Why did the grape stop in the middle of the road? It ran out of juice.", "Why did the belt get arrested? It held up a pair of pants.", "Why did the mushroom get invited to the party? He was a fungi.", "Why did the shovel get promoted? It was outstanding in its field.", "Why did the light bulb fail school? It wasn’t too bright.", "Why did the cow become an astronaut? To see the moooon.", "Why did the frog take the bus? His car got toad.", "Why did the cookie cry? Its mom was a wafer too long.", "Why did the lettuce win the race? It was ahead.", "Why did the pencil cross the road? It had a point.", "Why did the phone wear glasses? It lost its contacts.", "Why did the fridge blush? It saw the salad dressing.", "Why did the bee get married? He found his honey.", "Why did the clock get kicked out of class? It tocked too much.", "Why did the potato sit down? It was a little fried.", "Why did the book join the police? It had too many stories.", "Why did the candle apply for a job? It wanted to make scents.", "Why did the cloud stay home? It was feeling under the weather.", "Why did the keyboard break up with the mouse? It felt clicked on too much.", "Why did the sandwich go to the gym? To get breader.", "Why did the pirate go to school? To improve his arrr‑ticulation.", "Why did the snowman look through the carrots? He was picking his nose.", "Why did the duck get a job? He needed more bills.", "Why did the rope go to therapy? It was at the end of its rope.", "Why did the vacuum break up with the broom? It sucked at relationships.", "Why did the leaf get in trouble? It wouldn’t stop blowing.", "Why did the donut go to school? To get filled with knowledge.", "Why did the cloud get promoted? It had a silver lining.", "Why did the fish join a band? It had great scales.", "Why did the robot go on vacation? It needed to recharge.", "Why did the cookie go to school? It wanted to be a smart cookie.", "Why did the banana call the police? It got split.", "Why did the chair go to therapy? It couldn’t handle the pressure.", "Why did the squirrel bring a suitcase? It was going nuts.", "Why did the toaster break up with the bread? It felt used.", "Why did the moon skip dinner? It was full.", "Why did the spider go to school? To improve its web design.", "Why did the pencil get promoted? It was sharp.", "Why did the blanket get arrested? It covered up too much.", "Why did the cookie sit on the computer? It wanted to be a cookie file.", "Why did the chicken sit at the computer? To search for egg‑samples.", "Why did the astronaut break up with his girlfriend? He needed space.", "Why did the candle stay calm? It always kept its wick together.", "Why did the fish avoid the computer? It was scared of the net.", "Why did the grape get stepped on? It let out a little wine.", "Why did the cow buy a telescope? To see the moooon better.", "Why did the skeleton stay home? He had no body to go with."]  # Gathered using AI
     print(f"\033[32mYay! Good on you, {name}! You came for a laugh!\033[0m")
-    print(JOKES[random.randint(0, len(JOKES))])
+    fun_choice = random.randint(0, 10)
+    if fun_choice <= 8:
+        print(JOKES[random.randint(0, len(JOKES)-1)])
+    else:
+        print("Unlikely Easter Egg Time!\n")
+        confirm = input("Are you ready to be roasted? Y/n (be warned it could be harsh)").lower()
+        if confirm != "n":
+            print(f"Pfft. Seriously?? Someone with only {round(psutil.virtual_memory().total / (1024 ** 3), 2)}GB of RAM is"
+                   f" trying to talk to me like an EQUAL? I'm frankly... disappointed, {name}.")
 
 
 def random_generator():
@@ -181,7 +190,7 @@ def random_generator():
         valid = False
         while valid is False:
             try:
-                lower_bound = int(input("Enter the lower number: "))
+                lower = int(input("Enter the lower number: "))
                 valid = True
             except ValueError:
                 print("\033[31mThat is not valid!\033[0m")
@@ -190,8 +199,8 @@ def random_generator():
         valid = False
         while valid is False:
             try:
-                upper_bound = int(input("Enter the upper number: "))
-                if upper_bound <= lower_bound:
+                upper = int(input("Enter the upper number: "))
+                if upper <= lower:
                     print("\033[31mThat is not valid!\033[0m")
                 else:
                     valid = True
@@ -199,7 +208,7 @@ def random_generator():
                 print("\033[31mThat is not valid!\033[0m")
             except TypeError:
                 print("\033[31mThat is not valid!\033[0m")
-        print(f"Your random number is: {random.randint(lower_bound, upper_bound)}")
+        print(f"Your random number is: {random.randint(lower, upper)}")
     elif random_request == "w":
         valid = False
         words = []
@@ -215,7 +224,7 @@ def random_generator():
         for i in range(amount_words):
             words.append(input(f"{i+1}. Enter the word: "))
         print("\n")
-        print(words[random.randint(0, amount_words)])
+        print(words[random.randint(0, amount_words)-1])
     else:
         print("That is not an option!")
 
@@ -258,7 +267,6 @@ if returning == 1:
     welcome_returning(name)
 else:
     welcome_first()
-    # Reload name after first-time setup
     name = safe_load_json(os.path.join(DATA_DIR, "name.json"), "")
 
 while request != "exit" and request != "quit":
@@ -276,7 +284,7 @@ while request != "exit" and request != "quit":
               "are the commands you can use: "
               "Functions: O - Open an app, Exit - Exit the program, "
               "U - Other Utilities, Help - Help menu\nThanks for using my" \
-              " program! I hope you enjoy it! - Charlie")
+              " program! I hope you enjoy it! - Charlie\n")
     elif request == "exit" or request == "quit":
         print("Goodbye!")
     else:

@@ -19,7 +19,13 @@ A python script that helps users access things they need faster and access infor
 
 ### Optional
 - Pythonping (install using pip install pythonping in terminal)
+- pipx (to install via terminal)
 
+## Download
+- Ensure Pipx is installed on your machine
+- Run pipx install computer companion
+- Run the command computercompanion
+- You should be ready to go!
 
 ## How to use
 ### Running for first time
