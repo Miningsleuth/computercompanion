@@ -249,6 +249,8 @@ if returning == 1:
     welcome_returning(name)
 else:
     welcome_first()
+with open(os.path.join(DATA_DIR, "name.json"), "r") as f:
+    name = json.load(f)
 
 while request != "exit" and request != "quit":
     print("\nFunctions: O - Open an app, Exit - Exit the program, "
